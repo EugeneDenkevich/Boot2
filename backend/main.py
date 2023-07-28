@@ -1,11 +1,6 @@
-from fastapi import FastAPI
-
-from src.api import crud
+from src.api.crud import *
+from src.api.tests import *
 from src.db.base import create_db
 
 
-app = FastAPI()
-
-
 create_db()
-crud.crud(app)
