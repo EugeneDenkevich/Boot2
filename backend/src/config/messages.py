@@ -1,0 +1,1 @@
+INIT = 'Hello! This is the app Authors and Books!'
