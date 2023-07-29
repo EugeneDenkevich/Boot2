@@ -40,6 +40,14 @@ jobs:
     runs-on: ubuntu-latest
     needs: lint
     steps:
-    - name: Test
+    - name: Build
       run: |
-        echo Deploy on server successfully completed!
+        echo Build...
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+    - name: Deploy
+      run: |
+        echo Deploy...
