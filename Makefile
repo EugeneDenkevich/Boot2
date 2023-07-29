@@ -9,4 +9,6 @@ lint:
 	python -m flake8 app/
 
 build:
+	git config --global user.email "eugenestudio@mail.ru"
+    git config --global user.name "EugeneDenkevich"
 	git add . && git commit -m 'dev_to_main' && git push origin main
