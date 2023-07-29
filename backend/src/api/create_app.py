@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from crud import *
+from src.api.crud import *
 
 
 app = FastAPI()
