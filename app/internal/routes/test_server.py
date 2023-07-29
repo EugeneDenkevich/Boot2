@@ -2,10 +2,11 @@ from fastapi import APIRouter
 
 
 router = APIRouter(
-    prefix='/api-test'
+    prefix='/api-test',
+    
 )
 
 
-@router.get("/")
+@router.get("/", name='Test the server', tags=["Tests"])
 def check_server():
     return "success"
