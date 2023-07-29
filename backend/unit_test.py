@@ -6,5 +6,5 @@ client = TestClient(app)
 
 
 def test_valid_id():
-    response = client.get("/test")
+    response = client.get("/api/test")
     assert response.status_code == 200
