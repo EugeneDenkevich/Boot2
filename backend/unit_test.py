@@ -6,5 +6,5 @@ client = TestClient(app)
 
 
 def test_server_is_on():
-    response = client.get("/api")
+    response = client.get("/api/test")
     assert response.status_code == 200
