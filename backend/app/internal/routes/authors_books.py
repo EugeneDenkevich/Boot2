@@ -1,20 +1,24 @@
 import json
 
-from sqlalchemy.orm import Session
+from fastapi import APIRouter, Body, Depends
 from fastapi.responses import JSONResponse
-from fastapi import Depends, Body
+from sqlalchemy.orm import Session
 
-from src.db.base import Author, Book
-from src.db.session import get_db
-from src.api.create_app import app
+from app.internal.db.base import Author, Book
+from app.internal.db.session import get_db
 
 
-@app.get("/api")
+router = APIRouter(
+    prefix='/api'
+)
+
+
+@router.get("/")
 def root():
     return {'message': 'Hello! This is an application Authors and Books.'}
 
 
-@app.get("/api/books")
+@router.get("/books")
 def get_books(db: Session = Depends(get_db)):
     books = db.query(Book).all()
     if books == []:
@@ -25,7 +29,7 @@ def get_books(db: Session = Depends(get_db)):
     return res
 
 
-@app.get("/api/books/{id}")
+@router.get("/books/{id}")
 def get_book(id: int, db: Session = Depends(get_db)):
     book = db.query(Book).filter(Book.id == id).first()
     if book == None:
@@ -33,7 +37,7 @@ def get_book(id: int, db: Session = Depends(get_db)):
     return {book.id: book.title}
 
 
-@app.get("/api/authors")
+@router.get("/authors")
 def get_authors(db: Session = Depends(get_db)):
     authors = db.query(Author).all()
     if authors == []:
@@ -44,7 +48,7 @@ def get_authors(db: Session = Depends(get_db)):
     return res
 
 
-@app.get("/api/authors/{id}")
+@router.get("/authors/{id}")
 def get_author(id: int, db: Session = Depends(get_db)):
     author = db.query(Author).filter(Author.id == id).first()
     if author == None:
@@ -53,7 +57,7 @@ def get_author(id: int, db: Session = Depends(get_db)):
     return {author.id: author.name}
 
 
-@app.post("/api/books")
+@router.post("/books")
 def add_book(data=Body(), db: Session = Depends(get_db)):
     title = json.loads(data).get('title')
     book = Book(title=title)
@@ -76,7 +80,7 @@ def add_book(data=Body(), db: Session = Depends(get_db)):
     return [book] if book.authors else book
 
 
-@app.post("/api/authors")
+@router.post("/authors")
 def add_author(data=Body(), db: Session = Depends(get_db)):
     name = json.loads(data).get('name')
     author = Author(name=name)
@@ -91,7 +95,7 @@ def add_author(data=Body(), db: Session = Depends(get_db)):
     return [author, author.books] if books else author
 
 
-@app.put("/api/books")
+@router.put("/books")
 def change_book(data=Body(), db: Session = Depends(get_db)):
     id = json.loads(data).get('id')
     title = json.loads(data).get('title')
@@ -118,7 +122,7 @@ def change_book(data=Body(), db: Session = Depends(get_db)):
     if authors_exclude:
         book_authors.difference_update(set(authors_exclude))
         if not book_authors:
-            return JSONResponse(status_code=404, content={
+            return JSONResponse(status_code=403, content={
                 "error": "Forbidden to delete the last author."})
         for author in authors_exclude:
             try:
@@ -135,7 +139,7 @@ def change_book(data=Body(), db: Session = Depends(get_db)):
     return [book] if book.authors else book
 
 
-@app.put("/api/authors")
+@router.put("/authors")
 def change_author(data=Body(), db: Session = Depends(get_db)):
     id = json.loads(data).get('id')
     name = json.loads(data).get('name')
@@ -158,7 +162,7 @@ def change_author(data=Body(), db: Session = Depends(get_db)):
     return [author] if author.books else author
 
 
-@app.delete("/api/books/{id}")
+@router.delete("/books/{id}")
 def delete_book(id: int, db: Session = Depends(get_db)):
     book = db.query(Book).filter(Book.id == id).first()
     if book == None:
@@ -168,7 +172,7 @@ def delete_book(id: int, db: Session = Depends(get_db)):
     return book
 
 
-@app.delete("/api/authors/{id}")
+@router.delete("/authors/{id}")
 def delete_author(id: int, db: Session = Depends(get_db)):
     author = db.query(Author).filter(Author.id == id).first()
     if author == None:
