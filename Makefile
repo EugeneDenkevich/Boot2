@@ -9,4 +9,4 @@ lint:
 	python -m flake8 app/
 
 build:
-	python -m uvicorn app:create_app
+	git add . && git commit -m 'dev_to_main' && git push origin main
