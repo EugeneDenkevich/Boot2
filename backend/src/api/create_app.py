@@ -1,9 +1,5 @@
 from fastapi import FastAPI
+from crud import *
 
 
 app = FastAPI()
-
-
-@app.get("/api/test")
-async def test():
-    return 'test passed successfully'
