@@ -13,4 +13,4 @@ To lounch it type:
 docker-compose up --build -d
 ```
 
-<b>After successfuly lounching of the application</b> go to [swagger](http://127.0.0.1:8000/swagger) documentation fore checking API functionality.
+<b><u>After successfuly lounching of the application</u></b> go to [swagger](http://127.0.0.1:8000/swagger) documentation fore checking API functionality.
