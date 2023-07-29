@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 
 from app.internal.db.base import Author, Book
 from app.internal.db.session import get_db
-from app.internal.models.author_book import *
+from app.internal.models import author_book
 
 
 router = APIRouter(
@@ -14,7 +14,7 @@ router = APIRouter(
 
 @router.get("/books",
             tags=["Books"],
-            responses=get_books_responses)
+            responses=author_book.get_books_responses)
 def get_books(db: Session = Depends(get_db)):
     books = db.query(Book).all()
     if books == []:
@@ -30,10 +30,10 @@ def get_books(db: Session = Depends(get_db)):
 
 @router.get("/books/{id}",
             tags=["Books"],
-            responses=get_book_responses)
+            responses=author_book.get_book_responses)
 def get_book(id: int, db: Session = Depends(get_db)):
     book = db.query(Book).filter(Book.id == id).first()
-    if book == None:
+    if book is None:
         return JSONResponse(status_code=404,
                             content={"error": "The book not found"})
     res = {"id": int(book.id),
@@ -44,7 +44,7 @@ def get_book(id: int, db: Session = Depends(get_db)):
 
 @router.get("/authors",
             tags=["Authors"],
-            responses=get_authors_responses)
+            responses=author_book.get_authors_responses)
 def get_authors(db: Session = Depends(get_db)):
     authors = db.query(Author).all()
     if authors == []:
@@ -60,10 +60,10 @@ def get_authors(db: Session = Depends(get_db)):
 
 @router.get("/authors/{id}",
             tags=["Authors"],
-            responses=get_author_responses)
+            responses=author_book.get_author_responses)
 def get_author(id: int, db: Session = Depends(get_db)):
     author = db.query(Author).filter(Author.id == id).first()
-    if author == None:
+    if author is None:
         return JSONResponse(status_code=404, content={
             "error": "The author not found"})
     res = {"id": int(author.id),
@@ -74,8 +74,9 @@ def get_author(id: int, db: Session = Depends(get_db)):
 
 @router.post("/books",
              tags=["Books"],
-             responses={200: {"model": BookAddBaseModel}})
-def add_book(data: BookAddBaseModel, db: Session = Depends(get_db)):
+             responses={200: {"model": author_book.BookAddBaseModel}})
+def add_book(data: author_book.BookAddBaseModel,
+             db: Session = Depends(get_db)):
     title = data.title
     book = Book(title=title)
     all_authors = db.query(Author).all()
@@ -104,8 +105,9 @@ def add_book(data: BookAddBaseModel, db: Session = Depends(get_db)):
 
 @router.post("/authors",
              tags=["Authors"],
-             responses={200: {"model": AuthorAddBaseModel}})
-def add_author(data: AuthorAddBaseModel, db: Session = Depends(get_db)):
+             responses={200: {"model": author_book.AuthorAddBaseModel}})
+def add_author(data: author_book.AuthorAddBaseModel,
+               db: Session = Depends(get_db)):
     name = data.name
     author = Author(name=name)
     books = set(data.books)
@@ -126,12 +128,13 @@ def add_author(data: AuthorAddBaseModel, db: Session = Depends(get_db)):
 
 @router.put("/books",
             tags=["Books"],
-            responses={200: {"model": BookChangeBaseModel}, })
-def change_book(data: BookChangeBaseModel, db: Session = Depends(get_db)):
+            responses={200: {"model": author_book.BookChangeBaseModel}, })
+def change_book(data: author_book.BookChangeBaseModel,
+                db: Session = Depends(get_db)):
     id = data.id
     title = data.title
     book = db.query(Book).filter(Book.id == id).first()
-    if book == None:
+    if book is None:
         return JSONResponse(status_code=404,
                             content={"error": "The book not found"})
     book.title = title
@@ -174,13 +177,13 @@ def change_book(data: BookChangeBaseModel, db: Session = Depends(get_db)):
 
 @router.put("/authors",
             tags=["Authors"],
-            responses={200: {"model": AuthorChangeBaseModel}, })
-def change_author(data: AuthorChangeBaseModel,
+            responses={200: {"model": author_book.AuthorChangeBaseModel}, })
+def change_author(data: author_book.AuthorChangeBaseModel,
                   db: Session = Depends(get_db)):
     id = data.id
     name = data.name
     author = db.query(Author).filter(Author.id == id).first()
-    if author == None:
+    if author is None:
         return JSONResponse(status_code=404,
                             content={"error": "The author not found"})
     author.name = name
@@ -219,7 +222,7 @@ def change_author(data: AuthorChangeBaseModel,
 @router.delete("/books/{id}", tags=["Books"])
 def delete_book(id: int, db: Session = Depends(get_db)):
     book = db.query(Book).filter(Book.id == id).first()
-    if book == None:
+    if book is None:
         return JSONResponse(status_code=404,
                             content={"error": "The book not found"})
     db.delete(book)
@@ -230,7 +233,7 @@ def delete_book(id: int, db: Session = Depends(get_db)):
 @router.delete("/authors/{id}", tags=["Authors"])
 def delete_author(id: int, db: Session = Depends(get_db)):
     author = db.query(Author).filter(Author.id == id).first()
-    if author == None:
+    if author is None:
         return JSONResponse(status_code=404,
                             content={"error": "The author not found"})
     db.delete(author)

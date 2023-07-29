@@ -4,3 +4,6 @@ install:
 
 test:
 	python -m pytest -vv app/tests/test.py
+	
+lint:
+	python -m flake8 app/
