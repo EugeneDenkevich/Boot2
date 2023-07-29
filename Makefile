@@ -3,4 +3,4 @@ install:
 	pip install -r requirements.txt
 
 test:
-	python -m pytest -vv backend/app/tests/test.py
+	python -m pytest backend/app/tests/test.py
