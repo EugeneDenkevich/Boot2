@@ -7,3 +7,6 @@ test:
 	
 lint:
 	python -m flake8 app/
+
+build:
+	python -m uvicorn app:create_app

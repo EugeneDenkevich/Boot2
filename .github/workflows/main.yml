@@ -42,7 +42,7 @@ jobs:
     steps:
     - name: Build
       run: |
-        echo Build...
+        make build
 
   deploy:
     runs-on: ubuntu-latest
