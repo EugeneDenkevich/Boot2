@@ -5,6 +5,6 @@ from src.api.create_app import app
 client = TestClient(app)
 
 
-def test_valid_id():
+def test_server_is_on():
     response = client.get("/api")
     assert response.status_code == 200
