@@ -1,6 +1,6 @@
 # IT-Academy Bootcamp test task
 
-## Use:
+## Used:
 - Docker
 - FastAPI
 - Sqalchemy
@@ -8,13 +8,13 @@
 - SQLite
 - Aiogram
 
-To lounch it type:
+### To lounch it type:
 ```bash
 docker-compose up --build -d
 ```
 Then the PostgreSQL and FastAPI app will be upped.
 
-Or you can lounch developer mode:
+### Or you can lounch developer mode:
 ```bash
 uvicorn app:create_app 
 ```
