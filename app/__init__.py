@@ -1,6 +1,10 @@
 from fastapi import FastAPI
 
+from app.internal.db.base import create_db
 from app.config.server import Server
+
+
+create_db()
 
 
 def create_app(_=None) -> FastAPI:
