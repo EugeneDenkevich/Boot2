@@ -1,16 +1,29 @@
-version: "3"
+version: "3.11"
 
 services:
   app:
+    container_name: FastAPI
     build: ./app
     depends_on:
       - db
+    volumes:
+      - ./app:/opt/app/app
     restart: always
     ports: 
       - "8000:8000"
-      
+
   db:
+    container_name: PostgreSQL
     image: postgres:latest
     restart: always
     environment:
-      POSTGRES_PASSWORD: example
+      - POSTGRES_PASSWORD=example
+      - POSTGRES_USER=example
+      - POSTGRES_DB=authors_books
+    ports: 
+      - "5432:5432"
+    volumes:
+      - ./storage/postgres-data:/var/lib/postgresql/data
+
+networks:
+  default_network:
