@@ -6,6 +6,8 @@ services:
     build: ./app
     depends_on:
       - db
+    environment:
+      - DEBUG=True
     volumes:
       - ./app:/opt/app/app
     restart: always

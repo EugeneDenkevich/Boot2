@@ -1,16 +1,26 @@
 from __future__ import annotations
+import os
 
+from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy import Column, String, ForeignKey, Integer
 
 
-# SQLALCHEMY_DATABASE_URL = "sqlite:///./authors_books.db"
-SQLALCHEMY_DATABASE_URL = "postgresql+psycopg2://example:example@db:5432/authors_books"
-# engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={
-#                        "check_same_thread": False})
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
+load_dotenv()
+
+
+if not os.environ.get('DEBUG'):
+    SQLALCHEMY_DATABASE_URL = "sqlite:///./authors_books.db"
+    engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={
+        "check_same_thread": False})
+else:
+    SQLALCHEMY_DATABASE_URL = ("postgresql+psycopg2:/"
+                               "/example:example@db:5432/authors_books")
+    engine = create_engine(SQLALCHEMY_DATABASE_URL)
+
+
 Base = declarative_base()
 
 
