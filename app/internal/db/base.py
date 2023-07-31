@@ -16,8 +16,10 @@ if not os.environ.get('DEBUG'):
     engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={
         "check_same_thread": False})
 else:
-    SQLALCHEMY_DATABASE_URL = ("postgresql+psycopg2:/"
-                               "/example:example@db:5432/authors_books")
+    SQLALCHEMY_DATABASE_URL = "postgresql+psycopg2:/"\
+        f"/{os.environ.get('POSTGRES_USER')}:"\
+        f"{os.environ.get('POSTGRES_PASSWORD')}@db:5432/"\
+        f"{os.environ.get('POSTGRES_DB')}"
     engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
 
