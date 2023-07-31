@@ -8,13 +8,18 @@
 - SQLite
 - Aiogram
 
-### To lounch it type:
+### Create env varibles:
+```bash
+cp .env-example app/.env
+```
+
+### Run the app:
 ```bash
 docker-compose up --build -d
 ```
 Then the PostgreSQL and FastAPI app will be upped.
 
-### Or you can lounch developer mode:
+### Or you can run the app in developer mode:
 ```bash
 uvicorn app:create_app 
 ```
