@@ -1,13 +1,14 @@
 version: "3.11"
 
 services:
+
   app:
     container_name: FastAPI
     build: ./app
     depends_on:
       - db
-    environment:
-      - DEBUG=True
+    env_file:
+      - 'app/.env'
     volumes:
       - ./app:/opt/app/app
     restart: always
@@ -18,10 +19,8 @@ services:
     container_name: PostgreSQL
     image: postgres:latest
     restart: always
-    environment:
-      - POSTGRES_PASSWORD=example
-      - POSTGRES_USER=example
-      - POSTGRES_DB=authors_books
+    env_file:
+      - 'app/.env'
     ports: 
       - "5432:5432"
     volumes:

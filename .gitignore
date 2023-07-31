@@ -2,3 +2,4 @@ authors_books.db
 .venv/
 __pycache__/
 storage/
+.env
