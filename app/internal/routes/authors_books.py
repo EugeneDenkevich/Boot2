@@ -136,7 +136,7 @@ def add_author(data: author_book.AuthorAddBaseModel,
             tags=["Books"],
             responses={200: {"model": author_book.BookChangeBaseModel}, },
             description='Point the authors ids as integer numbers '
-                        'in authors_append=[] separate by , if you ' 
+                        'in authors_append=[] separate by , if you '
                         'want to append authors.\n Point the authors '
                         'ids as integer numbers in authors_exclude=[] '
                         'separate by , if you want to exclude '
