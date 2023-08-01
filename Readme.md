@@ -20,6 +20,7 @@ cp .env-example app/.env
 ```bash
 docker-compose up --build -d
 ```
+Waite a bit. There will be some mistakes in the console: it'l continue untill the database is fully up.
 Then the PostgreSQL and FastAPI services will be upped.
 
 ### Or you can run the app in developer mode. Install Python >3.9 on your computer and type the following from Boot2 directory:
@@ -29,9 +30,16 @@ python -m venv .venv
 ```bash
 cd .venv/Scripts
 ```
+---
+### For Windos
 ```bash
 .\activate
 ```
+### For Linux
+```bash
+.\activate
+```
+---
 ```bash
 cd ../..
 ```
