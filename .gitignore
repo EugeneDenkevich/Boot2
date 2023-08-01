@@ -3,3 +3,4 @@ authors_books.db
 __pycache__/
 storage/
 .env
+bot/

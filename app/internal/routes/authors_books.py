@@ -74,7 +74,10 @@ def get_author(id: int, db: Session = Depends(get_db)):
 
 @router.post("/books",
              tags=["Books"],
-             responses={200: {"model": author_book.BookAddBaseModel}})
+             responses={200: {"model": author_book.BookAddBaseModel}},
+             description='Point the authors ids as integer numbers '
+                         'in authors=[] separate by , - You can\'t create book '
+                         'without at least one author.')
 def add_book(data: author_book.BookAddBaseModel,
              db: Session = Depends(get_db)):
     title = data.title
@@ -105,7 +108,10 @@ def add_book(data: author_book.BookAddBaseModel,
 
 @router.post("/authors",
              tags=["Authors"],
-             responses={200: {"model": author_book.AuthorAddBaseModel}})
+             responses={200: {"model": author_book.AuthorAddBaseModel}},
+             description='Point the books ids as integer numbers '
+                         'in books=[] separate by , - You can create author '
+                         'without any books.')
 def add_author(data: author_book.AuthorAddBaseModel,
                db: Session = Depends(get_db)):
     name = data.name
@@ -128,7 +134,12 @@ def add_author(data: author_book.AuthorAddBaseModel,
 
 @router.put("/books",
             tags=["Books"],
-            responses={200: {"model": author_book.BookChangeBaseModel}, })
+            responses={200: {"model": author_book.BookChangeBaseModel}, },
+            description='Point the authors ids as integer numbers '
+                        'in authors_append=[] separate by , if you want to append '
+                        'authors.\n Point the authors ids as integer numbers '
+                        'in authors_exclude=[] separate by , if you want to exclude '
+                        'authors.')
 def change_book(data: author_book.BookChangeBaseModel,
                 db: Session = Depends(get_db)):
     id = data.id
@@ -177,7 +188,12 @@ def change_book(data: author_book.BookChangeBaseModel,
 
 @router.put("/authors",
             tags=["Authors"],
-            responses={200: {"model": author_book.AuthorChangeBaseModel}, })
+            responses={200: {"model": author_book.AuthorChangeBaseModel}, },
+            description='Point the books ids as integer numbers '
+                        'in books_append=[] separate by , if you want to append '
+                        'books.\n Point the books ids as integer numbers '
+                        'in books_exclude=[] separate by , if you want to exclude '
+                        'books.')
 def change_author(data: author_book.AuthorChangeBaseModel,
                   db: Session = Depends(get_db)):
     id = data.id
@@ -219,7 +235,9 @@ def change_author(data: author_book.AuthorChangeBaseModel,
     return [author] if author.books else author
 
 
-@router.delete("/books/{id}", tags=["Books"])
+@router.delete("/books/{id}",
+               tags=["Books"],
+               responses=author_book.delete_books_responses)
 def delete_book(id: int, db: Session = Depends(get_db)):
     book = db.query(Book).filter(Book.id == id).first()
     if book is None:
@@ -230,7 +248,9 @@ def delete_book(id: int, db: Session = Depends(get_db)):
     return book
 
 
-@router.delete("/authors/{id}", tags=["Authors"])
+@router.delete("/authors/{id}",
+               tags=["Authors"],
+               responses=author_book.delete_authors_responses)
 def delete_author(id: int, db: Session = Depends(get_db)):
     author = db.query(Author).filter(Author.id == id).first()
     if author is None:

@@ -28,10 +28,6 @@ def create_app(_=None) -> FastAPI:
             "name": "Authors",
             "description": "Operations with Authors.",
         },
-        {
-            "name": "Tests",
-            "description": "Tests for API",
-        },
     ]
 
     app = FastAPI(

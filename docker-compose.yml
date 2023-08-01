@@ -9,6 +9,8 @@ services:
       - db
     env_file:
       - 'app/.env'
+    environment:
+      - DOCKER=True
     volumes:
       - ./app:/opt/app/app
     restart: always

@@ -6,6 +6,7 @@ router = APIRouter(
 )
 
 
-@router.get("/", name='Test the server', tags=["Tests"])
+@router.get("/", name='Test the server',
+            include_in_schema=False)
 def check_server():
     return "success"

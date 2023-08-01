@@ -11,16 +11,18 @@ from sqlalchemy import Column, String, ForeignKey, Integer
 load_dotenv()
 
 
-if not os.environ.get('DEBUG'):
+if not os.environ.get('DOCKER'):
     SQLALCHEMY_DATABASE_URL = "sqlite:///./authors_books.db"
     engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={
         "check_same_thread": False})
+    print("---> SQLITE AS A DATABASE WAS CHOSEN <---")
 else:
     SQLALCHEMY_DATABASE_URL = "postgresql+psycopg2:/"\
         f"/{os.environ.get('POSTGRES_USER')}:"\
         f"{os.environ.get('POSTGRES_PASSWORD')}@db:5432/"\
         f"{os.environ.get('POSTGRES_DB')}"
     engine = create_engine(SQLALCHEMY_DATABASE_URL)
+    print("---> POSTGRESQL AS A DATABASE WAS CHOSEN <---")
 
 
 Base = declarative_base()

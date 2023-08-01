@@ -57,6 +57,36 @@ get_authors_responses = {
         },
     },
 }
+delete_books_responses = {
+    200: {
+        "content": {
+            "application/json": {
+                "example": [
+                    {
+                        "id": 0,
+                        "title": "string",
+                        "authors": [],
+                    }
+                ]
+            }
+        },
+    },
+}
+delete_authors_responses = {
+    200: {
+        "content": {
+            "application/json": {
+                "example": [
+                    {
+                        "id": 0,
+                        "name": "string",
+                        "books": [],
+                    }
+                ]
+            }
+        },
+    },
+}
 
 
 class BookAddBaseModel(BaseModel):
