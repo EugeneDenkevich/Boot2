@@ -18,7 +18,7 @@ cp .env-example app/.env
 
 ### Run the app:
 ```bash
-docker-compose up --build -d
+docker-compose up --build
 ```
 Waite a bit. There will be some mistakes in the console: it'l continue untill the database is fully up.
 Then the PostgreSQL and FastAPI services will be upped.
