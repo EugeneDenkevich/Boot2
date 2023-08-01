@@ -37,7 +37,7 @@ cd .venv/Scripts
 ```
 ### For Linux
 ```bash
-.\activate
+activate
 ```
 ---
 ```bash
