@@ -76,8 +76,8 @@ def get_author(id: int, db: Session = Depends(get_db)):
              tags=["Books"],
              responses={200: {"model": author_book.BookAddBaseModel}},
              description='Point the authors ids as integer numbers '
-                         'in authors=[] separate by , - You can\'t create book '
-                         'without at least one author.')
+                         'in authors=[] separate by , - You can\'t create '
+                         'book without at least one author.')
 def add_book(data: author_book.BookAddBaseModel,
              db: Session = Depends(get_db)):
     title = data.title
@@ -136,9 +136,10 @@ def add_author(data: author_book.AuthorAddBaseModel,
             tags=["Books"],
             responses={200: {"model": author_book.BookChangeBaseModel}, },
             description='Point the authors ids as integer numbers '
-                        'in authors_append=[] separate by , if you want to append '
-                        'authors.\n Point the authors ids as integer numbers '
-                        'in authors_exclude=[] separate by , if you want to exclude '
+                        'in authors_append=[] separate by , if you '
+                        'want to append authors.\n Point the authors '
+                        'ids as integer numbers in authors_exclude=[] '
+                        'separate by , if you want to exclude '
                         'authors.')
 def change_book(data: author_book.BookChangeBaseModel,
                 db: Session = Depends(get_db)):
@@ -190,9 +191,10 @@ def change_book(data: author_book.BookChangeBaseModel,
             tags=["Authors"],
             responses={200: {"model": author_book.AuthorChangeBaseModel}, },
             description='Point the books ids as integer numbers '
-                        'in books_append=[] separate by , if you want to append '
-                        'books.\n Point the books ids as integer numbers '
-                        'in books_exclude=[] separate by , if you want to exclude '
+                        'in books_append=[] separate by , if you '
+                        'want to append books.\n Point the books '
+                        'ids as integer numbers in books_exclude=[] '
+                        'separate by , if you want to exclude '
                         'books.')
 def change_author(data: author_book.AuthorChangeBaseModel,
                   db: Session = Depends(get_db)):
