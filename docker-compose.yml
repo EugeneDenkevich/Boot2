@@ -5,6 +5,7 @@ services:
   app:
     container_name: FastAPI
     build: ./app
+    command: make up
     depends_on:
       - db
     env_file:

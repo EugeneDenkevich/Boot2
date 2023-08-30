@@ -12,6 +12,8 @@ RUN pip install -r /opt/app/requirements.txt
 
 COPY . /opt/app/app
 
-EXPOSE 8000
+COPY wait-for-it.sh /wait-for-it.sh
+COPY ./Makefile .
+RUN chmod +x /wait-for-it.sh
 
-CMD [ "uvicorn", "app:create_app", "--host", "0.0.0.0", "--port", "8000" ]
+EXPOSE 8000
