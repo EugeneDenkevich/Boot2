@@ -1,4 +1,6 @@
+
 # IT-Academy Bootcamp test task
+![workflow](https://github.com/github/docs/actions/workflows/main.yml/badge.svg)
 
 ## Used:
 - Docker
