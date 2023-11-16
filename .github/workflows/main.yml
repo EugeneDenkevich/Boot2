@@ -55,7 +55,7 @@ jobs:
         echo "The logining has done successful"
 
     - name: Push Docker Image to Docker Hub
-      run: docker push eugenestudio/blog:latest
+      run: docker push eugenestudio/boot2:latest
 
   deploy:
     runs-on: ubuntu-latest
