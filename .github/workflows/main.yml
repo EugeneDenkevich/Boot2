@@ -68,7 +68,7 @@ jobs:
       - name: Show folders
         run: pwd
       - name: Stop and remove containers, networks
-        run: echo ${{ secrets.EUGENE_PASSWORD }} | sudo -S docker compose down
+        run: echo ${{ secrets.EUGENE_PASSWORD }} | sudo -S docker compose -f /home/eugene/apps/Boot2/Boot2/docker-compose.yml down
       - name: Remove unused data
         run: echo ${{ secrets.EUGENE_PASSWORD }} | sudo -S docker system prune -a -f
 
@@ -81,4 +81,4 @@ jobs:
       - name: Create env
         run: cp /home/eugene/apps/Boot2/Boot2/app/.env-example /home/eugene/apps/Boot2/Boot2/app/.env
       - name: docker-compose
-        run: echo ${{ secrets.EUGENE_PASSWORD }} | sudo -S docker compose up -d
+        run: echo ${{ secrets.EUGENE_PASSWORD }} | sudo -S docker compose -f /home/eugene/apps/Boot2/Boot2/docker-compose.yml up -d
