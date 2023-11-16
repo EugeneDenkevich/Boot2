@@ -35,6 +35,7 @@ def create_app(_=None) -> FastAPI:
         title="Authors & Books API",
         summary="API for application \"Authors & Books\"",
         description=description,
+        description='Null',
         version='1.0',
         openapi_tags=tags_metadata
     )
