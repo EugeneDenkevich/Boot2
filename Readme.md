@@ -19,7 +19,7 @@
 cd app && cp .env-example .env && cd ..
 ```
 ```bash
-docker-compose up --build
+sudo docker compose up --build -d
 ```
 ### Setup environment:
 ```bash
