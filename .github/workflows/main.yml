@@ -64,7 +64,7 @@ jobs:
       - name: Create env
         run: cp /home/eugene/apps/Boot2/Boot2/app/.env-example /home/eugene/apps/Boot2/Boot2/app/.env
       - name: Set Permissions
-        run: echo ${{ secrets.EUGENE_PASSWORD }} | sudo -S chown -R $USER:$USER /home/eugene/apps/eugene_studio
+        run: echo ${{ secrets.EUGENE_PASSWORD }} | sudo -S chown -R $USER:$USER /home/eugene/apps/Boot2
       - name: Stop and remove containers, networks
         run: echo ${{ secrets.DOCKER_PASSWORD }} | sudo -S docker compose down
       - name: Remove unused data
