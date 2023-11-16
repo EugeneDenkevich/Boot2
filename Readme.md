@@ -8,6 +8,7 @@
 - Sqalchemy
 - PostgreSQL
 - SQLite
+- Makefile
 
 ## TODO:
 - Authors and Books names validations
@@ -15,30 +16,30 @@
 
 ### Run the app:
 ```bash
+cd app && cp .env-example .env && cd ..
+```
+```bash
 docker-compose up --build
 ```
-Waite a bit. There will be some mistakes in the console: it'l continue untill the database is fully up.
-
-### Or you can run the app in developer mode. Install Python >3.9 on your computer and type the following from Boot2 directory:
+### Setup environment:
 ```bash
-python -m venv .venv
+python3 -m venv .venv && \
+source .venv/bin/activate && \
+pip install -r app/requirements.txt && \
 ```
+### Run the tests:
 ```bash
-.venv/Scripts/activate
+make test
 ```
+-------
+Also you run the app in dev mode with SQLite as a database.
+Before it stop the containers:
 ```bash
-pip install -r app/requirements.txt
+sudo docker stop app-boot2 db-boot2 
 ```
-```bash
-cd app
-```
-```bash
-cp .env-exapmle .env
-```
-Then run the app in dev mode with SQLite as a database:
+Then run local server:
 ```bash
 uvicorn app:create_app
 ```
-
 
 ***After the successfuly launching of the application*** go to [swagger](http://127.0.0.1:8000/swagger) documentation for checking API functionality.

@@ -19,7 +19,7 @@ if not os.environ.get('DOCKER'):
 else:
     SQLALCHEMY_DATABASE_URL = "postgresql+psycopg2:/"\
         f"/{os.environ.get('POSTGRES_USER')}:"\
-        f"{os.environ.get('POSTGRES_PASSWORD')}@db:5432/"\
+        f"{os.environ.get('POSTGRES_PASSWORD')}@db-boot2:5432/"\
         f"{os.environ.get('POSTGRES_DB')}"
     engine = create_engine(SQLALCHEMY_DATABASE_URL)
     print("---> POSTGRESQL AS A DATABASE WAS CHOSEN <---")

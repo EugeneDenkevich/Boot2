@@ -12,8 +12,6 @@ RUN pip install -r /opt/app/requirements.txt
 
 COPY . /opt/app/app
 
-COPY wait-for-it.sh /wait-for-it.sh
 COPY ./Makefile .
-RUN chmod +x /wait-for-it.sh
 
 EXPOSE 8000
