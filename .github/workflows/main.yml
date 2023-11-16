@@ -57,10 +57,26 @@ jobs:
     - name: Push Docker Image to Docker Hub
       run: docker push eugenestudio/boot2:latest
 
-  deploy:
-    runs-on: ubuntu-latest
+  prepare-env:
+    runs-on: self-hosted
     needs: build
     steps:
-    - name: Deploy
-      run: |
-        echo Deploy...
+      - name: Create env
+        run: cp /home/eugene/apps/Boot2/Boot2/app/.env-example /home/eugene/apps/Boot2/Boot2/app/.env
+      - name: Set Permissions
+        run: echo ${{ secrets.EUGENE_PASSWORD }} | sudo -S chown -R $USER:$USER /home/eugene/apps/eugene_studio
+      - name: Stop and remove containers, networks
+        run: echo ${{ secrets.DOCKER_PASSWORD }} | sudo -S docker compose down
+      - name: Remove unused data
+        run: echo ${{ secrets.DOCKER_PASSWORD }} | sudo -S docker system prune -a -f
+
+  deploy:
+    runs-on: self-hosted
+    needs: prepare-env
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v4
+      - name: Create env
+        run: cp /home/eugene/apps/Boot2/Boot2/app/.env-example /home/eugene/apps/Boot2/Boot2/app/.env
+      - name: docker-compose
+        run: echo ${{ secrets.EUGENE_PASSWORD }} | sudo -S docker compose up -d
