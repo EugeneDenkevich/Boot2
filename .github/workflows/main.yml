@@ -66,7 +66,7 @@ jobs:
       - name: Set Permissions
         run: echo ${{ secrets.EUGENE_PASSWORD }} | sudo -S chown -R $USER:$USER /home/eugene/apps/Boot2
       - name: Show folders
-        run: ls -la
+        run: ls -la && ls -la .. && ls -la ../.. && ls -la ../../..
       - name: Stop and remove containers, networks
         run: echo ${{ secrets.EUGENE_PASSWORD }} | sudo -S docker compose down
       - name: Remove unused data
