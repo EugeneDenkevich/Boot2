@@ -60,15 +60,6 @@ jobs:
   prepare-env:
     runs-on: self-hosted
     needs: build
-    # steps:
-    #   - name: Create env
-    #     run: cp /home/eugene/apps/Boot2/Boot2/app/.env-example /home/eugene/apps/Boot2/Boot2/app/.env
-    #   - name: Set Permissions
-    #     run: echo ${{ secrets.EUGENE_PASSWORD }} | sudo -S chown -R $USER:$USER /home/eugene/apps/Boot2
-    #   - name: Stop and remove containers, networks
-    #     run: echo ${{ secrets.EUGENE_PASSWORD }} | sudo -S docker compose -f /home/eugene/apps/Boot2/Boot2/docker-compose.yml down
-    #   - name: Remove unused data
-    #     run: echo ${{ secrets.EUGENE_PASSWORD }} | sudo -S docker system prune -a -f
     steps:
       - name: Create env
         run: cp /home/eugene/apps/Boot2/actions-runner/_work/Boot2/Boot2/app/.env-example /home/eugene/apps/Boot2/actions-runner/_work/Boot2/Boot2/app/.env
