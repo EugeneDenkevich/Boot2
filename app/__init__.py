@@ -9,15 +9,15 @@ create_db()
 
 def create_app(_=None) -> FastAPI:
 
-    # description = ("Please, before creating first book be sure "
-    #                "that you've created the first author.\n\n"
-    #                "<b>Enjoy! This is my first API on FastAPI!</b>\n\n"
-    #                "## Books\n"
-    #                "You can create, retrieve, update and delete books. "
-    #                "One book can have 1 or more Authors.\n\n"
-    #                "## Author\n"
-    #                "You can create, retrieve, update and delete authors. "
-    #                "One author can have 0 or more Books.\n\n")
+    description = ("Please, before creating first book be sure "
+                   "that you've created the first author.\n\n"
+                   "<b>Enjoy! This is my first API on FastAPI!</b>\n\n"
+                   "## Books\n"
+                   "You can create, retrieve, update and delete books. "
+                   "One book can have 1 or more Authors.\n\n"
+                   "## Author\n"
+                   "You can create, retrieve, update and delete authors. "
+                   "One author can have 0 or more Books.\n\n")
 
     tags_metadata = [
         {
@@ -34,8 +34,7 @@ def create_app(_=None) -> FastAPI:
         docs_url="/swagger",
         title="Authors & Books API",
         summary="API for application \"Authors & Books\"",
-        # description=description,
-        description='Null',
+        description=description,
         version='1.0',
         openapi_tags=tags_metadata
     )
