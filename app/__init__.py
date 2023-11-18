@@ -9,7 +9,7 @@ create_db()
 
 def create_app(_=None) -> FastAPI:
 
-    description = ("TEST!!!!! ---- >>> Please, before creating first book be sure "
+    description = ("TEST!!!!! ->> Please, before creating first book be sure "
                    "that you've created the first author.\n\n"
                    "<b>Enjoy! This is my first API on FastAPI!</b>\n\n"
                    "## Books\n"
