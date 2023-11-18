@@ -25,7 +25,7 @@ sudo docker compose up --build -d
 ```bash
 python3 -m venv .venv && \
 source .venv/bin/activate && \
-pip install -r app/requirements.txt && \
+pip install -r app/requirements.txt
 ```
 ### Run the tests:
 ```bash
