@@ -69,7 +69,8 @@ jobs:
         run: cd /home/eugene/apps/Boot2/actions-runner/_work/Boot2/Boot2/ && echo ${{ secrets.EUGENE_PASSWORD }} | sudo -S docker compose down
       - name: Remove unused data
         run: echo ${{ secrets.EUGENE_PASSWORD }} | sudo -S docker system prune -a -f
-
+# TODO
+# Look if I'm already in the neccessary place
   deploy:
     runs-on: self-hosted
     needs: prepare-env

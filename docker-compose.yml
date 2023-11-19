@@ -3,7 +3,7 @@ version: "3.11"
 services:
 
   app-boot2:
-    container_name: app-boot2
+    container_name: app-boot2-BOOT2
     build: ./app
     command: make up
     depends_on:
@@ -19,7 +19,7 @@ services:
       - "8001:8000"
 
   db-boot2:
-    container_name: db-boot2
+    container_name: db-boot2-BOOT2
     image: postgres:latest
     restart: always
     env_file:
