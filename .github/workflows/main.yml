@@ -2,7 +2,6 @@ name: Run Test
 on:
   push:
     branches:
-      - dev
       - main
 jobs:
 
@@ -66,7 +65,7 @@ jobs:
       - name: Set Permissions
         run: echo ${{ secrets.EUGENE_PASSWORD }} | sudo -S chown -R $USER:$USER /home/eugene/apps/Boot2
       - name: Stop and remove containers, networks
-        run: cd /home/eugene/apps/Boot2/actions-runner/_work/Boot2/Boot2/ && echo ${{ secrets.EUGENE_PASSWORD }} | sudo -S docker compose down
+        run: cd /home/eugene/apps/Boot2/actions-runner/_work/Boot2/Boot2/ && echo ${{ secrets.EUGENE_PASSWORD }} | sudo -S docker compose -f docker-compose-prod.yml down
       - name: Remove unused data
         run: echo ${{ secrets.EUGENE_PASSWORD }} | sudo -S docker system prune -a -f
 # TODO
@@ -80,4 +79,4 @@ jobs:
       - name: Create env
         run: cp /home/eugene/apps/Boot2/actions-runner/_work/Boot2/Boot2/app/.env-example /home/eugene/apps/Boot2/actions-runner/_work/Boot2/Boot2/app/.env
       - name: docker-compose
-        run: cd /home/eugene/apps/Boot2/actions-runner/_work/Boot2/Boot2/ && echo ${{ secrets.EUGENE_PASSWORD }} | sudo -S docker compose up -d
+        run: cd /home/eugene/apps/Boot2/actions-runner/_work/Boot2/Boot2/ && echo ${{ secrets.EUGENE_PASSWORD }} | sudo -S docker compose -f docker-compose-prod.yml up -d
