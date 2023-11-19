@@ -2,12 +2,12 @@ version: "3.11"
 
 services:
 
-  app-boot2-BOOT2:
-    container_name: app-boot2-BOOT2
+  app-BOOT2:
+    container_name: app-BOOT2
     build: ./app
     command: make up
     env_file:
-      - 'app/.env-prod'
+      - 'app/.env'
     volumes:
       - ./app:/opt/app/app
     restart: always
