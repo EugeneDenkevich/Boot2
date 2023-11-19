@@ -2,12 +2,10 @@ version: "3.11"
 
 services:
 
-  app-boot2:
+  app-boot2-BOOT2:
     container_name: app-boot2-BOOT2
     build: ./app
     command: make up
-    depends_on:
-      - db-boot2
     env_file:
       - 'app/.env-prod'
     volumes:
