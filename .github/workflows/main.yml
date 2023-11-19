@@ -62,6 +62,8 @@ jobs:
     # needs: build
     steps:
 
+      - name: pwd
+        run: pwd
       - name: Create env
         run: cp ./app/.env-example ./app/.env
 
