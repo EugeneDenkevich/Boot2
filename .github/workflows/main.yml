@@ -62,11 +62,6 @@ jobs:
     # needs: build
     steps:
 
-      - name: pwd
-        run: pwd
-      - name: Create env
-        run: cp ./app/.env-example ./app/.env
-
       - name: Set Permissions
         run: echo ${{ secrets.EUGENE_PASSWORD }} | sudo -S chown -R $USER:$USER /home/eugene/apps/Boot2
 
@@ -92,6 +87,10 @@ jobs:
   #       run: echo ${{ secrets.EUGENE_PASSWORD }} | sudo -S docker system prune -a -f
 
 
+      # - name: pwd
+      #   run: pwd
+      # - name: Create env
+      #   run: cp ./app/.env-example ./app/.env
 
 
   # deploy:
