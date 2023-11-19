@@ -90,7 +90,7 @@ jobs:
 
   deploy-beget:
     runs-on: self-hosted
-    needs: prepare-env
+    needs: prepare-env-beget
     steps:
 
       - name: Create env
