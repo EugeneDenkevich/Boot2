@@ -2,8 +2,8 @@ version: "3.11"
 
 services:
 
-  app-BOOT2:
-    container_name: app-BOOT2
+  app-boot2:
+    container_name: app-boot2
     build: ./app
     command: make up
     env_file:
