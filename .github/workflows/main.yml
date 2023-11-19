@@ -73,14 +73,14 @@ jobs:
     needs: [test, lint]
     steps:
 
+      - name: Set Permissions
+        run: echo ${{ secrets.EUGENE_PASSWORD }} | sudo -S chown -R $USER:$USER /home/eugene/apps
+
       - name: checkout repo
         uses: actions/checkout@v4
 
       - name: Create env
         run: cp ./app/.env-example ./app/.env
-
-      - name: Set Permissions
-        run: echo ${{ secrets.EUGENE_PASSWORD }} | sudo -S chown -R $USER:$USER /home/eugene/apps
 
       - name: Stop and remove containers, networks
         run: echo ${{ secrets.EUGENE_PASSWORD }} | sudo -S docker compose -f docker-compose-prod.yml down
