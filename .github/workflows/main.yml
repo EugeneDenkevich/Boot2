@@ -93,8 +93,5 @@ jobs:
     needs: prepare-env-beget
     steps:
 
-      - name: Create env
-        run: cp ./app/.env-example ./app/.env
-
       - name: docker-compose
         run: echo ${{ secrets.EUGENE_PASSWORD }} | sudo -S docker compose -f docker-compose-prod.yml up -d

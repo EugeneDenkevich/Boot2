@@ -32,10 +32,10 @@ def create_app(_=None) -> FastAPI:
 
     app = FastAPI(
         docs_url="/swagger",
-        title="Authors & Books API <-- Last release",
+        title="Authors & Books API",
         summary="API for application \"Authors & Books\"",
         description=description,
-        version='1.0',
+        version='0.07',
         openapi_tags=tags_metadata
     )
 
