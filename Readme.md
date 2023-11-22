@@ -2,7 +2,7 @@
 # Authors & Books
 ![workflow](https://github.com/EugeneDenkevich/Boot2/actions/workflows/main.yml/badge.svg)
 
-## Used:
+### Used:
 - FastAPI
 - SQLAlchemy
 - PostgreSQL
