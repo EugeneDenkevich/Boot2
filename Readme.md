@@ -3,16 +3,20 @@
 ![workflow](https://github.com/EugeneDenkevich/Boot2/actions/workflows/main.yml/badge.svg)
 
 ## Used:
-- Docker
 - FastAPI
-- Sqalchemy
+- SQLAlchemy
 - PostgreSQL
-- SQLite
 - Makefile
+- GitHub Actions
+- Git runners
+- Docker Compose
+- DockerHub
+- AWS
 
-## TODO:
-- Authors and Books names validations
-- Telegram Bot (aiogram)
+### Done:
+- Relation between Authors and Books
+- All CRUD functions for both
+- CI/CD
 
 ### Run the app:
 ```bash
