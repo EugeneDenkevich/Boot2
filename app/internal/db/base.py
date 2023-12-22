@@ -37,7 +37,9 @@ class Author(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String)
-    books = relationship("Book", secondary="author_book", back_populates="authors")
+    books = relationship(
+        "Book", secondary="author_book", back_populates="authors"
+    )
 
     def __repr__(self):
         return f"<Author: {self.name}>"
@@ -49,7 +51,9 @@ class Book(Base):
 
     id = Column(Integer, primary_key=True)
     title = Column(String)
-    authors = relationship("Author", secondary="author_book", back_populates="books")
+    authors = relationship(
+        "Author", secondary="author_book", back_populates="books"
+    )
 
     def __repr__(self):
         return f"<Book: {self.title}>"

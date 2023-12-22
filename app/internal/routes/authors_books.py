@@ -10,44 +10,64 @@ from app.internal.models import author_book
 router = APIRouter(prefix="/api")
 
 
-@router.get("/books", tags=["Books"], responses=author_book.get_books_responses)
+@router.get(
+    "/books", tags=["Books"], responses=author_book.get_books_responses
+)
 def get_books(db: Session = Depends(get_db)):
     books = db.query(Book).all()
     if books == []:
-        return JSONResponse(status_code=404, content={"error": "The books not found"})
+        return JSONResponse(
+            status_code=404, content={"error": "The books not found"}
+        )
     res = []
     for book in books:
-        res.append({"id": int(book.id), "title": book.title, "authors": book.authors})
-    return res
-
-
-@router.get("/books/{id}", tags=["Books"], responses=author_book.get_book_responses)
-def get_book(id: int, db: Session = Depends(get_db)):
-    book = db.query(Book).filter(Book.id == id).first()
-    if book is None:
-        return JSONResponse(status_code=404, content={"error": "The book not found"})
-    res = {"id": int(book.id), "title": book.title, "authors": book.authors}
-    return res
-
-
-@router.get("/authors", tags=["Authors"], responses=author_book.get_authors_responses)
-def get_authors(db: Session = Depends(get_db)):
-    authors = db.query(Author).all()
-    if authors == []:
-        return JSONResponse(status_code=404, content={"error": "The authors not found"})
-    res = []
-    for author in authors:
-        res.append({"id": int(author.id), "name": author.name, "books": author.books})
+        res.append(
+            {"id": int(book.id), "title": book.title, "authors": book.authors}
+        )
     return res
 
 
 @router.get(
-    "/authors/{id}", tags=["Authors"], responses=author_book.get_author_responses
+    "/books/{id}", tags=["Books"], responses=author_book.get_book_responses
+)
+def get_book(id: int, db: Session = Depends(get_db)):
+    book = db.query(Book).filter(Book.id == id).first()
+    if book is None:
+        return JSONResponse(
+            status_code=404, content={"error": "The book not found"}
+        )
+    res = {"id": int(book.id), "title": book.title, "authors": book.authors}
+    return res
+
+
+@router.get(
+    "/authors", tags=["Authors"], responses=author_book.get_authors_responses
+)
+def get_authors(db: Session = Depends(get_db)):
+    authors = db.query(Author).all()
+    if authors == []:
+        return JSONResponse(
+            status_code=404, content={"error": "The authors not found"}
+        )
+    res = []
+    for author in authors:
+        res.append(
+            {"id": int(author.id), "name": author.name, "books": author.books}
+        )
+    return res
+
+
+@router.get(
+    "/authors/{id}",
+    tags=["Authors"],
+    responses=author_book.get_author_responses,
 )
 def get_author(id: int, db: Session = Depends(get_db)):
     author = db.query(Author).filter(Author.id == id).first()
     if author is None:
-        return JSONResponse(status_code=404, content={"error": "The author not found"})
+        return JSONResponse(
+            status_code=404, content={"error": "The author not found"}
+        )
     res = {"id": int(author.id), "name": author.name, "books": author.books}
     return res
 
@@ -60,7 +80,9 @@ def get_author(id: int, db: Session = Depends(get_db)):
     "in authors=[] separate by , - You can't create "
     "book without at least one author.",
 )
-def add_book(data: author_book.BookAddBaseModel, db: Session = Depends(get_db)):
+def add_book(
+    data: author_book.BookAddBaseModel, db: Session = Depends(get_db)
+):
     title = data.title
     book = Book(title=title)
     all_authors = db.query(Author).all()
@@ -87,7 +109,8 @@ def add_book(data: author_book.BookAddBaseModel, db: Session = Depends(get_db)):
             book.authors.append(a)
         else:
             return JSONResponse(
-                status_code=404, content={"error": "Author in the list not faund"}
+                status_code=404,
+                content={"error": "Author in the list not faund"},
             )
     db.add(book)
     db.commit()
@@ -104,7 +127,9 @@ def add_book(data: author_book.BookAddBaseModel, db: Session = Depends(get_db)):
     "in books=[] separate by , - You can create author "
     "without any books.",
 )
-def add_author(data: author_book.AuthorAddBaseModel, db: Session = Depends(get_db)):
+def add_author(
+    data: author_book.AuthorAddBaseModel, db: Session = Depends(get_db)
+):
     name = data.name
     author = Author(name=name)
     books = set(data.books)
@@ -115,7 +140,8 @@ def add_author(data: author_book.AuthorAddBaseModel, db: Session = Depends(get_d
                 author.books.append(b)
             else:
                 return JSONResponse(
-                    status_code=404, content={"error": "Books in the list not faund"}
+                    status_code=404,
+                    content={"error": "Books in the list not faund"},
                 )
     db.add(author)
     db.commit()
@@ -137,12 +163,16 @@ def add_author(data: author_book.AuthorAddBaseModel, db: Session = Depends(get_d
     "separate by , if you want to exclude "
     "authors.",
 )
-def change_book(data: author_book.BookChangeBaseModel, db: Session = Depends(get_db)):
+def change_book(
+    data: author_book.BookChangeBaseModel, db: Session = Depends(get_db)
+):
     id = data.id
     title = data.title
     book = db.query(Book).filter(Book.id == id).first()
     if book is None:
-        return JSONResponse(status_code=404, content={"error": "The book not found"})
+        return JSONResponse(
+            status_code=404, content={"error": "The book not found"}
+        )
     book.title = title
     book_authors = {author.id for author in book.authors}
     authors_append = set(data.authors_append)
@@ -159,7 +189,8 @@ def change_book(data: author_book.BookChangeBaseModel, db: Session = Depends(get
                     )
             else:
                 return JSONResponse(
-                    status_code=404, content={"error": "Author is already mentioned."}
+                    status_code=404,
+                    content={"error": "Author is already mentioned."},
                 )
     if authors_exclude:
         book_authors.difference_update(authors_exclude)
@@ -207,7 +238,9 @@ def change_author(
     name = data.name
     author = db.query(Author).filter(Author.id == id).first()
     if author is None:
-        return JSONResponse(status_code=404, content={"error": "The author not found"})
+        return JSONResponse(
+            status_code=404, content={"error": "The author not found"}
+        )
     author.name = name
     author_books = {book.id for book in author.books}
     books_append = set(data.books_append)
@@ -230,7 +263,9 @@ def change_author(
     if books_exclude:
         for book in books_exclude:
             try:
-                author.books.remove(db.query(Book).filter(Book.id == book).first())
+                author.books.remove(
+                    db.query(Book).filter(Book.id == book).first()
+                )
             except ValueError:
                 return JSONResponse(
                     status_code=404,
@@ -250,19 +285,25 @@ def change_author(
 def delete_book(id: int, db: Session = Depends(get_db)):
     book = db.query(Book).filter(Book.id == id).first()
     if book is None:
-        return JSONResponse(status_code=404, content={"error": "The book not found"})
+        return JSONResponse(
+            status_code=404, content={"error": "The book not found"}
+        )
     db.delete(book)
     db.commit()
     return book
 
 
 @router.delete(
-    "/authors/{id}", tags=["Authors"], responses=author_book.delete_authors_responses
+    "/authors/{id}",
+    tags=["Authors"],
+    responses=author_book.delete_authors_responses,
 )
 def delete_author(id: int, db: Session = Depends(get_db)):
     author = db.query(Author).filter(Author.id == id).first()
     if author is None:
-        return JSONResponse(status_code=404, content={"error": "The author not found"})
+        return JSONResponse(
+            status_code=404, content={"error": "The author not found"}
+        )
     db.delete(author)
     db.commit()
     return author
