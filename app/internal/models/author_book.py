@@ -118,8 +118,7 @@ class BookChangeBaseModel(BaseModel):
                     "id": 0,
                     "title": "string",
                     "authors_append": [],
-                    "authors_exclude": []
-
+                    "authors_exclude": [],
                 }
             ]
         }

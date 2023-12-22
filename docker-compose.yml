@@ -2,12 +2,12 @@ version: "3.11"
 
 services:
 
-  app-BOOT2:
-    container_name: app-boot2-BOOT2
+  app-boot2:
+    container_name: app-boot2
     build: ./app
     command: make up
     depends_on:
-      - db-BOOT2
+      - db-boot2
     env_file:
       - 'app/.env'
     environment:
@@ -15,16 +15,16 @@ services:
     volumes:
       - ./app:/opt/app/app
     restart: always
-    ports: 
+    ports:
       - "8001:8000"
 
-  db-BOOT2:
-    container_name: db-boot2-BOOT2
+  db-boot2:
+    container_name: db-boot2
     image: postgres:latest
     restart: always
     env_file:
       - 'app/.env'
-    ports: 
+    ports:
       - "5433:5432"
     volumes:
       - ./storage/postgres-data:/var/lib/postgresql/data
